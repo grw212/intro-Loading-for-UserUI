@@ -260,7 +260,7 @@
             if (pauseIndex !== -1) {
                 // থামার সময় লোডার এনিমেশন বন্ধ
                 loaderElement.style.animationPlayState = 'paused';
-                statusElement.textContent = `Please Wait ${pauseIndex + 1}...`;
+                statusElement.textContent = `Please Wait...`; //${pauseIndex + 1}
                 
                 // রেনডম সময় (500ms - 2000ms)
                 const pauseDuration = Math.floor(Math.random() * 1000) + 500;
