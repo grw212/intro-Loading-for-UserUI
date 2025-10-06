@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Loader & Working Mode</title>
+    <style>
+        :root{
+            --clr-body-bg: #09162e;
+            --clr-loader-bg: #00aeff;
+            --clr-text: #ffffff;
+            --clr-success: #00ff88;
+        }
+
+        body {
+            background: var(--clr-body-bg);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            color: var(--clr-text);
+            flex-direction: column;
+            overflow: hidden;
+            transition: background 0.5s ease;
+        }
+
+        .loader-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 10px solid rgba(0, 174, 255, 0.3);
+            box-shadow: 0 0 5px 1px var(--clr-loader-bg);
+            border-right-color: var(--clr-loader-bg);
+            border-radius: 50%;
+            animation: rotate 1s infinite linear;
+            margin-bottom: 20px;
+        }
+
+        .percentage {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--clr-loader-bg);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 174, 255, 0.7);
+        }
+
+        .status {
+            font-size: 16px;
+            color: #a0d2ff;
+            margin-top: 10px;
+            min-height: 20px;
+        }
+
+        .progress-bar {
+            width: 250px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--clr-loader-bg);
+            width: 0%;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--clr-loader-bg);
+        }
+
+        /* Working Mode Styles */
+        .working-mode {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .working-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--clr-success), #00ccff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .working-icon svg {
+            width: 50px;
+            height: 50px;
+            fill: white;
+        }
+
+        .working-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--clr-success);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
+        }
+
+        .working-subtitle {
+            font-size: 18px;
+            color: #a0d2ff;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--clr-success);
+        }
+
+        .feature-title {
+            font-weight: bold;
+            color: var(--clr-success);
+            margin-bottom: 5px;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 255, 136, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(0, 255, 136, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 255, 136, 0.5); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader Section -->
+    <div class="loader-container" id="loaderContainer">
+        <div class="loader"></div>
+        <div class="percentage" id="percentage">0%</div>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="status" id="status">Initializing System...</div>
+    </div>
+
+    <!-- Working Mode Section -->
+    <div class="working-mode" id="workingMode">
+        <div class="working-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+        </div>
+        <div class="working-title">SYSTEM READY</div>
+        <div class="working-subtitle">All systems are operational and running smoothly</div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-title">Performance</div>
+                <div>Optimized and running at peak efficiency</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">Security</div>
+                <div>All security protocols active</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">Network</div>
+                <div>Stable connection established</div>
+            </div>
+            <div class="feature">
+                <div class="feature-title">Resources</div>
+                <div>System resources allocated</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let percentage = 0;
+        const percentageElement = document.getElementById('percentage');
+        const progressElement = document.getElementById('progress');
+        const statusElement = document.getElementById('status');
+        const loaderElement = document.querySelector('.loader');
+        const loaderContainer = document.getElementById('loaderContainer');
+        const workingMode = document.getElementById('workingMode');
+        
+        // রেনডম থামার পয়েন্ট জেনারেট করা (২টি রেনডম পয়েন্ট)
+        const pausePoints = generateRandomPausePoints(2);
+        
+        // স্ট্যাটাস মেসেজ
+        const statusMessages = {
+            0: "Initializing System...",
+            15: "Loading Core Modules...",
+            30: "Checking Dependencies...",
+            45: "Processing Configuration...",
+            60: "Optimizing Performance...",
+            75: "Verifying Security Protocols...",
+            85: "Finalizing Setup...",
+            95: "Almost Complete...",
+            100: "System Ready!"
+        };
+        
+        function generateRandomPausePoints(count) {
+            const points = new Set();
+            while (points.size < count) {
+                // 20-95% এর মধ্যে রেনডম পয়েন্ট জেনারেট করা
+                const point = Math.floor(Math.random() * 76) + 20;
+                points.add(point);
+            }
+            return Array.from(points).sort((a, b) => a - b);
+        }
+        
+        function updateStatus(percent) {
+            // সবচেয়ে কাছের স্ট্যাটাস মেসেজ খুঁজে বের করা
+            const closest = Object.keys(statusMessages).reduce((prev, curr) => {
+                return (Math.abs(curr - percent) < Math.abs(prev - percent) ? curr : prev);
+            });
+            
+            statusElement.textContent = statusMessages[closest];
+        }
+        
+        function incrementPercentage() {
+            if (percentage >= 100) {
+                // 100% হলে ওয়ার্কিং মোডে পরিবর্তন
+                updateStatus(100);
+                showWorkingMode();
+                return;
+            }
+            
+            percentage++;
+            percentageElement.textContent = `${percentage}%`;
+            progressElement.style.width = `${percentage}%`;
+            
+            // স্ট্যাটাস আপডেট
+            updateStatus(percentage);
+            
+            // পুলস এনিমেশন
+            if (percentage % 10 === 0) {
+                percentageElement.classList.add('pulse');
+                setTimeout(() => {
+                    percentageElement.classList.remove('pulse');
+                }, 500);
+            }
+            
+            // থামার পয়েন্ট চেক করা
+            const pauseIndex = pausePoints.indexOf(percentage);
+            if (pauseIndex !== -1) {
+                // থামার সময় লোডার এনিমেশন বন্ধ
+                loaderElement.style.animationPlayState = 'paused';
+                statusElement.textContent = `Processing task ${pauseIndex + 1}...`;
+                
+                // রেনডম সময় (500ms - 2000ms)
+                const pauseDuration = Math.floor(Math.random() * 1000) + 500;
+                
+                // নির্দিষ্ট সময় পর আবার শুরু
+                setTimeout(() => {
+                    loaderElement.style.animationPlayState = 'running';
+                    setTimeout(incrementPercentage, 50);
+                }, pauseDuration);
+            } else {
+                // স্বাভাবিকভাবে চলতে থাকবে
+                const delay = Math.random() < 0.3 ? 100 : 50; // কিছু ভ্যারিয়েশন যোগ
+                setTimeout(incrementPercentage, delay);
+            }
+        }
+        
+        function showWorkingMode() {
+            // লোডার হাইড করা
+            loaderContainer.style.opacity = '0';
+            loaderContainer.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                loaderContainer.style.display = 'none';
+                
+                // ওয়ার্কিং মোড দেখানো
+                workingMode.style.display = 'flex';
+                
+                // 3 সেকেন্ড পরে রিডাইরেক্ট
+                setTimeout(() => {
+                    // নতুন পেজে রিডাইরেক্ট
+          //          window.location.href = "https://www.example.com";
+                    // অথবা নতুন ট্যাব খুলতে চাইলে:
+                     window.open("https://www.example.com", "_blank");
+                     window.close(); // বর্তমান ট্যাব বন্ধ করতে
+                }, 300);
+            }, 500);
+        }
+        
+        // শুরু করা
+        setTimeout(() => {
+            console.log("Random pause points:", pausePoints);
+            incrementPercentage();
+        }, 500);
+    </script>
+</body>
+</html>
