@@ -260,7 +260,7 @@
             if (pauseIndex !== -1) {
                 // থামার সময় লোডার এনিমেশন বন্ধ
                 loaderElement.style.animationPlayState = 'paused';
-                statusElement.textContent = `Processing task ${pauseIndex + 1}...`;
+                statusElement.textContent = `Please Wait ${pauseIndex + 1}...`;
                 
                 // রেনডম সময় (500ms - 2000ms)
                 const pauseDuration = Math.floor(Math.random() * 1000) + 500;
@@ -296,7 +296,7 @@
                     // বর্তমান ট্যাব/উইন্ডো ক্লোজ করার চেষ্টা
                     // Note: এইটা শুধুমাত্র কাজ করবে যদি এই ট্যাবটি JavaScript দিয়ে খোলা হয়ে থাকে
                     window.close();
-                }, 3000);
+                }, 2000);
             }, 500);
         }
         
