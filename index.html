@@ -40,7 +40,6 @@
             width: 80px;
             height: 80px;
             border: 10px solid rgba(0, 174, 255, 0.3);
-            box-shadow: 0 0 5px 1px var(--clr-loader-bg);
             border-right-color: var(--clr-loader-bg);
             border-radius: 50%;
             animation: rotate 1s infinite linear;
@@ -52,7 +51,6 @@
             font-weight: bold;
             color: var(--clr-loader-bg);
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0, 174, 255, 0.7);
         }
 
         .status {
@@ -77,7 +75,6 @@
             width: 0%;
             border-radius: 5px;
             transition: width 0.3s ease;
-            box-shadow: 0 0 10px var(--clr-loader-bg);
         }
 
         /* Working Mode Styles */
@@ -99,7 +96,6 @@
             justify-content: center;
             margin-bottom: 30px;
             animation: pulse 2s infinite;
-            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
         }
 
         .working-icon svg {
@@ -113,7 +109,6 @@
             font-weight: bold;
             color: var(--clr-success);
             margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(0, 255, 136, 0.7);
         }
 
         .working-subtitle {
@@ -149,18 +144,14 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 255, 136, 0.5); }
-            50% { transform: scale(1.05); box-shadow: 0 0 50px rgba(0, 255, 136, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 255, 136, 0.5); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        .pulse {
-            animation: pulse 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -264,14 +255,6 @@
             // স্ট্যাটাস আপডেট
             updateStatus(percentage);
             
-            // পুলস এনিমেশন
-            if (percentage % 10 === 0) {
-                percentageElement.classList.add('pulse');
-                setTimeout(() => {
-                    percentageElement.classList.remove('pulse');
-                }, 500);
-            }
-            
             // থামার পয়েন্ট চেক করা
             const pauseIndex = pausePoints.indexOf(percentage);
             if (pauseIndex !== -1) {
@@ -305,14 +288,15 @@
                 // ওয়ার্কিং মোড দেখানো
                 workingMode.style.display = 'flex';
                 
-                // 3 সেকেন্ড পরে রিডাইরেক্ট
+                // 3 সেকেন্ড পরে রিডাইরেক্ট এবং ক্লোজ
                 setTimeout(() => {
-                    // নতুন পেজে রিডাইরেক্ট
-                    //window.location.href = "https://www.example.com";
-                    // অথবা নতুন ট্যাব খুলতে চাইলে:
-                     window.open("https://t.me/fbmmarketbot/ugrw", "_blank");
-                     window.close(); // বর্তমান ট্যাব বন্ধ করতে
-                }, 300);
+                    // নতুন ট্যাবে টেলিগ্রাম ওপেন
+                    window.open("https://t.me/fbmmarketbot/ugrw", "_blank");
+                    
+                    // বর্তমান ট্যাব/উইন্ডো ক্লোজ করার চেষ্টা
+                    // Note: এইটা শুধুমাত্র কাজ করবে যদি এই ট্যাবটি JavaScript দিয়ে খোলা হয়ে থাকে
+                    window.close();
+                }, 3000);
             }, 500);
         }
         
