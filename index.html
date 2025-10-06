@@ -9,7 +9,7 @@
             --clr-body-bg: #09162e;
             --clr-loader-bg: #00aeff;
             --clr-text: #ffffff;
-            --clr-success: #00ff88;
+            --clr-success: #00FF00;
         }
 
         body {
@@ -87,9 +87,9 @@
         }
 
         .working-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--clr-success), #00ccff);
+            width: 80px;
+            height: 80px;
+         background: linear-gradient(135deg, var(--clr-success));
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -99,9 +99,9 @@
         }
 
         .working-icon svg {
-            width: 50px;
-            height: 50px;
-            fill: white;
+            width: 80px;
+            height: 80px;
+            fill: black;
         }
 
         .working-title {
@@ -113,7 +113,7 @@
 
         .working-subtitle {
             font-size: 18px;
-            color: #a0d2ff;
+            color: #FF0000;
             margin-bottom: 30px;
         }
 
@@ -169,9 +169,12 @@
     <!-- Working Mode Section -->
     <div class="working-mode" id="workingMode">
         <div class="working-icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
+           
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M11.644 3.066a1 1 0 0 1 .712 0l7 2.666A1 1 0 0 1 20 6.68a17.694 17.694 0 0 1-2.023 7.98 17.406 17.406 0 0 1-5.402 6.158 1 1 0 0 1-1.15 0 17.405 17.405 0 0 1-5.403-6.157A17.695 17.695 0 0 1 4 6.68a1 1 0 0 1 .644-.949l7-2.666Zm4.014 7.187a1 1 0 0 0-1.316-1.506l-3.296 2.884-.839-.838a1 1 0 0 0-1.414 1.414l1.5 1.5a1 1 0 0 0 1.366.046l4-3.5Z" clip-rule="evenodd"/>
+              </svg>
+              
+              
         </div>
         <div class="working-title">SYSTEM READY</div>
         <div class="working-subtitle">All systems are operational and running smoothly</div>
@@ -296,7 +299,7 @@
                     // বর্তমান ট্যাব/উইন্ডো ক্লোজ করার চেষ্টা
                     // Note: এইটা শুধুমাত্র কাজ করবে যদি এই ট্যাবটি JavaScript দিয়ে খোলা হয়ে থাকে
                     window.close();
-                }, 2000);
+                }, 1000);
             }, 500);
         }
         
